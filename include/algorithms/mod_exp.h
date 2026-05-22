@@ -3,30 +3,28 @@
 
 #include <gmp.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /**
- * @file miller_rabin.h
- * @brief Miller-Rabin probabilistic primality test.
+ * Fast modular exponentiation algorithm.
  *
- * FIPS 186-5 §B.3.1
- * Implementation of Miller-Rabin's primality test as defined
- * in FIPS 186-5 Appendix B.3.1. 
- * approved DRBG (SP 800-90A).
- *
- * Error probability per call: <= 4^(-rounds).
- * FIPS minimum rounds: 5 for 2048-bit, 4 for 3072-bit and above.
+ * Computes modulus in O(log(n)) multiplications using the
+ * square-and-multiply algorithm as per FIPS 186-5 §B.2 specification.
  */
 
+typedef enum {
+    ME_OK            =  0,
+    ME_ERR_MODULUS   = -1,  /** Modulus <= 1 */
+    ME_ERR_BASE      = -2,  /** Out of range */
+    ME_ERR_EXPONENT  = -3,  /** Exponent < 0 */
+} me_result_t;
 
+me_result_t mod_exp(mpz_t result,
+                    const mpz_t base,
+                    const mpz_t exp,
+                    const mpz_t mod);
 
-#ifdef __cplusplus
-}
-#endif
+me_result_t mod_exp_ct(mpz_t result,
+                       const mpz_t base,
+                       const mpz_t exp,
+                       const mpz_t mod);
 
-
-
-
-#endif
+#endif /* RSA_MOD_EXP_H */
