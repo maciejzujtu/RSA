@@ -12,14 +12,14 @@
 
 typedef enum {
     GCD_OK              =  0,
-    GCD_ERR_NO_INVERSE  = -1,  /**< gcd(a, m) != 1 */
-    GCD_ERR_MODULUS     = -2,  /**< Modulus <= 1   */
-    GCD_ERR_INPUT       = -3,  /**< Invalid inputs */
+    GCD_ERR_NO_INVERSE  = -1,
+    GCD_ERR_MODULUS     = -2,
+    GCD_ERR_INPUT       = -3,
 } gcd_result_t;
 
 /**
  * Computes gcd and Bezout coefficients x, y such
- * that a*x + b*y = gcd(a, b). Used during keygen
+ * that a*x + b*y = gcd(a, b)
  */
 gcd_result_t extended_gcd(mpz_t gcd, mpz_t x, mpz_t y,
                            const mpz_t a, const mpz_t b);
